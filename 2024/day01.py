@@ -1,4 +1,5 @@
 from get_input_data import AoCInputHandler
+from pathlib import Path
 
 # set up the data
 def parse_input(input_text: str):
@@ -51,12 +52,17 @@ def get_similarity_score(left, right):
 
 if __name__ == '__main__':
 
-    """
-    session = input("Illeszd be az Advent of Code session azonosítód: ").strip()
-    day = 1
-    handler = AoCInputHandler(session)    
-    l, r = parse_input(handler.fetch_input(day))
-    """
+    file1_path = Path("left.txt")
+    file2_path = Path("right.txt")
+
+    if not file1_path.exists() and not file2_path.exists():
+        # csak akkor fut le, ha a fájl még nem létezik
+        session = input("Illeszd be az Advent of Code session azonosítód: ").strip()
+        day = 1
+        handler = AoCInputHandler(session)    
+        l, r = parse_input(handler.fetch_input(day))
+        write_to_files(l, r, "left.txt", "right.txt")
+
     columns = read_from_file(["left.txt", "right.txt"])
     l, r = columns[0], columns[1]
     # part one
